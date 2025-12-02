@@ -1,6 +1,6 @@
 
 {
-  "name": "tmax/cora-php",
+  "name": "lucastmax/cora-php",
   "description": "Cliente PHP 7 para as APIs da Cora (boletos v2, pagamento em stage e OAuth2 Client Credentials).",
   "type": "library",
   "license": "MIT",
