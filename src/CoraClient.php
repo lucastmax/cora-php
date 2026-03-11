@@ -39,7 +39,7 @@ final class CoraClient
             $idempotencyKey = Idempotency::uuidV4();
         }
         $headers['Idempotency-Key'] = $idempotencyKey;
-
+        
         return $this->http()->request('POST', '/v2/invoices', [
             'headers' => $headers,
             'json'    => $payload,

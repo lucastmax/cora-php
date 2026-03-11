@@ -36,7 +36,8 @@ final class HttpClient
      * @throws HttpException
      */
     public function request(string $method, string $uri, array $options = [])
-    {
+    {   
+
         $options['headers'] = array_merge($this->defaultHeaders, $options['headers'] ?? []);
         try {
             $res = $this->client->request($method, ltrim($uri, '/'), $options);
