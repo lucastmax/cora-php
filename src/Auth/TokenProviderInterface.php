@@ -1,5 +1,5 @@
-
 <?php
+
 namespace Cora\Auth;
 
 interface TokenProviderInterface

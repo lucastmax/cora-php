@@ -1,5 +1,5 @@
-
 <?php
+
 namespace Cora\Http;
 
 use GuzzleHttp\Client;
@@ -20,6 +20,7 @@ final class HttpClient
         $this->client = new Client(array_merge([
             'base_uri' => rtrim($baseUri, '/').'/',
             'timeout'  => 30,
+            'verify' => false, 
         ], $guzzleOptions));
     }
 
@@ -45,6 +46,7 @@ final class HttpClient
         } catch (RequestException $e) {
             $status = $e->getResponse() ? $e->getResponse()->getStatusCode() : 0;
             $body   = $e->getResponse() ? (string) $e->getResponse()->getBody() : null;
+            dd($e);
             throw new HttpException('HTTP error', $status, $body, $e);
         }
     }

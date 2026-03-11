@@ -1,5 +1,5 @@
-
 <?php
+
 namespace Cora\Auth;
 
 use Cora\Config;
@@ -23,6 +23,29 @@ final class ClientCredentialsProvider implements TokenProviderInterface
         $this->http   = new HttpClient($config->getBaseUrl(), [
             'Content-Type' => 'application/json',
         ]);
+    }
+
+    public function getTokenByCode(): array
+    {
+        $authHeader = 'Basic ' . base64_encode($this->config->getClientId() . ':' . $this->config->getClientSecret());
+        $token = $this->http->request('POST', $this->config->getOauthTokenUrl(), [
+            'headers' => [
+                'Authorization' => $authHeader,
+                'Content-Type'  => 'application/x-www-form-urlencoded',
+            ],
+            'form_params' => [
+                'grant_type' => 'authorization_code',
+                'code'=> $this->config->getCode(),
+                'redirect_uri'  => $this->config->getRedirectUrl(),
+            ],
+        ]);
+
+        if (!is_array($token) || empty($token['access_token'])) {
+            throw new AuthException('Token inválido em client_credentials');
+        }
+        $token['_obtained_at'] = time();
+        $this->cachedToken = $token;
+        return $token;
     }
 
     public function getToken(): array
@@ -50,6 +73,7 @@ final class ClientCredentialsProvider implements TokenProviderInterface
         $this->cachedToken = $token;
         return $token;
     }
+
 
     private function isValid(array $token): bool
     {

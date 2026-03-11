@@ -1,5 +1,5 @@
-
 <?php
+
 namespace Cora\Exceptions;
 
 class HttpException extends CoraException

@@ -1,5 +1,5 @@
-
 <?php
+
 namespace Cora;
 
 final class Config
@@ -24,6 +24,10 @@ final class Config
 
     /** @var string */
     private $oauthTokenUrl;
+
+    private $code;
+
+    private $redirectUrl;
 
     public function __construct(
         string $environment,
@@ -51,4 +55,11 @@ final class Config
     public function getScopes(): array { return $this->scopes; }
     public function getBaseUrl(): string { return $this->baseUrl; }
     public function getOauthTokenUrl(): string { return $this->oauthTokenUrl; }
+    public function getCode() : string {return $this->code;}
+    public function getRedirectUrl() : string {return $this->redirectUrl;}
+
+    public function setCode($code){ $this->code = $code; }
+    public function setRedirectUrl($url) { $this->redirectUrl = $url;}
+    
+
 }
