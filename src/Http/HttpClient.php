@@ -47,7 +47,6 @@ final class HttpClient
         } catch (RequestException $e) {
             $status = $e->getResponse() ? $e->getResponse()->getStatusCode() : 0;
             $body   = $e->getResponse() ? (string) $e->getResponse()->getBody() : null;
-            dd($e);
             throw new HttpException('HTTP error', $status, $body, $e);
         }
     }
